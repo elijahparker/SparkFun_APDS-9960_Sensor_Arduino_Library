@@ -87,18 +87,6 @@ void setup() {
   }
 }
 
-int main(int argc, char **argv) {
-    for(;;) {
-        handleGesture();
-        usleep(200000);
-    }
-    return 0;
-}
-
-void interruptRoutine() {
-  isr_flag = 1;
-}
-
 void handleGesture() {
     if ( apds.isGestureAvailable() ) {
     switch ( apds.readGesture() ) {
@@ -125,3 +113,13 @@ void handleGesture() {
     }
   }
 }
+
+int main(int argc, char **argv) {
+    setup();
+    for(;;) {
+        handleGesture();
+        usleep(200000);
+    }
+    return 0;
+}
+
