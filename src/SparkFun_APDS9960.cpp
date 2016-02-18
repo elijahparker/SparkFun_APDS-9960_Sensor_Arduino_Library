@@ -20,7 +20,10 @@
  //#include <Wire.h>
 #include <stdint.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <sys/ioctl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <math.h>
 #include <linux/i2c-dev.h>
 
@@ -2112,7 +2115,7 @@ bool SparkFun_APDS9960::wireInitialize(char *dev, int addr)
     if (i2c_dev < 0) {
         return false;
     }
-    if (ioctl(file, I2C_SLAVE, addr) < 0) {
+    if (ioctl(i2c_dev, I2C_SLAVE, addr) < 0) {
         return false;
     }
     return true;
