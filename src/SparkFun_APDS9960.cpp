@@ -2172,7 +2172,7 @@ bool SparkFun_APDS9960::wireReadDataByte(uint8_t reg, uint8_t &val)
         return false;
     }
     
-    memcpy(val, &tmp, 1);
+    memcpy(&val, &tmp, 1);
 
     return true;
 }
@@ -2192,7 +2192,7 @@ int16_t SparkFun_APDS9960::wireReadDataBlock(   uint8_t reg,
     uint8_t buf[32];
     int16_t l = i2c_smbus_read_block_data(i2c_dev, reg, buf);
 
-    if(tmp < 0) {
+    if(l < 0) {
         return -1;
     }
 
