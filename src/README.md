@@ -1,3 +1,5 @@
+## This version has been ported to Linux so it can run on systems like the RPi, etc.  It is no longer Arduino compatible.
+
 This folder should contain the .cpp and .h files for the library. 
 
 If backward compatibility is needed, source code should be placed in the library root folder and in a "utilyt" folder. 

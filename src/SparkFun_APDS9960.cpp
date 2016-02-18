@@ -16,9 +16,10 @@
  *   Gesture in progress:   35mA
  */
  
- #include <Arduino.h>
- #include <Wire.h>
- 
+ //#include <Arduino.h>
+ //#include <Wire.h>
+ #include <linux/i2c-dev.h>
+
  #include "SparkFun_APDS9960.h"
  
 /**
@@ -57,7 +58,7 @@ bool SparkFun_APDS9960::init()
     uint8_t id;
 
     /* Initialize I2C */
-    Wire.begin();
+    wireInitialize("/dev/i2c-2", APDS9960_I2C_ADDR);
      
     /* Read ID register and check against known values for APDS-9960 */
     if( !wireReadDataByte(APDS9960_ID, id) ) {
@@ -461,7 +462,7 @@ bool SparkFun_APDS9960::isGestureAvailable()
  *
  * @return Number corresponding to gesture. -1 on error.
  */
-int SparkFun_APDS9960::readGesture()
+int16_t SparkFun_APDS9960::readGesture()
 {
     uint8_t fifo_level = 0;
     uint8_t bytes_read = 0;
@@ -2096,6 +2097,24 @@ bool SparkFun_APDS9960::setGestureMode(uint8_t mode)
  ******************************************************************************/
 
 /**
+ * @brief Initializes Linux i2c device
+ *
+ * @param[in] dev the path to the I2C device
+ * @return True if successful. False otherwise.
+ */
+bool SparkFun_APDS9960::wireInitialize(char *dev, int addr)
+{
+    i2c_dev = open(filename, O_RDWR);
+    if (i2c_dev < 0) {
+        return false;
+    }
+    if (ioctl(file, I2C_SLAVE, addr) < 0) {
+        return false;
+    }
+    return true;
+}
+
+/**
  * @brief Writes a single byte to the I2C device (no register)
  *
  * @param[in] val the 1-byte value to write to the I2C device
@@ -2103,9 +2122,7 @@ bool SparkFun_APDS9960::setGestureMode(uint8_t mode)
  */
 bool SparkFun_APDS9960::wireWriteByte(uint8_t val)
 {
-    Wire.beginTransmission(APDS9960_I2C_ADDR);
-    Wire.write(val);
-    if( Wire.endTransmission() != 0 ) {
+    if(i2c_smbus_write_byte(i2c_dev, val) < 0);
         return false;
     }
     
@@ -2121,13 +2138,10 @@ bool SparkFun_APDS9960::wireWriteByte(uint8_t val)
  */
 bool SparkFun_APDS9960::wireWriteDataByte(uint8_t reg, uint8_t val)
 {
-    Wire.beginTransmission(APDS9960_I2C_ADDR);
-    Wire.write(reg);
-    Wire.write(val);
-    if( Wire.endTransmission() != 0 ) {
+    if(i2c_smbus_write_byte_data(i2c_dev, reg, val) < 0);
         return false;
     }
-
+    
     return true;
 }
 
@@ -2141,19 +2155,12 @@ bool SparkFun_APDS9960::wireWriteDataByte(uint8_t reg, uint8_t val)
  */
 bool SparkFun_APDS9960::wireWriteDataBlock(  uint8_t reg, 
                                         uint8_t *val, 
-                                        unsigned int len)
+                                        uint16_t len)
 {
-    unsigned int i;
-
-    Wire.beginTransmission(APDS9960_I2C_ADDR);
-    Wire.write(reg);
-    for(i = 0; i < len; i++) {
-        Wire.beginTransmission(val[i]);
-    }
-    if( Wire.endTransmission() != 0 ) {
+    if(i2c_smbus_write_block_data(i2c_dev, reg, len, val) < 0);
         return false;
     }
-
+    
     return true;
 }
 
@@ -2166,17 +2173,12 @@ bool SparkFun_APDS9960::wireWriteDataBlock(  uint8_t reg,
  */
 bool SparkFun_APDS9960::wireReadDataByte(uint8_t reg, uint8_t &val)
 {
-    
-    /* Indicate which register we want to read from */
-    if (!wireWriteByte(reg)) {
+    int tmp = i2c_smbus_read_byte_data(i2c_dev, reg);
+    if(tmp < 0);
         return false;
     }
     
-    /* Read from register */
-    Wire.requestFrom(APDS9960_I2C_ADDR, 1);
-    while (Wire.available()) {
-        val = Wire.read();
-    }
+    *val = (uint8_t) tmp;
 
     return true;
 }
@@ -2193,22 +2195,15 @@ int SparkFun_APDS9960::wireReadDataBlock(   uint8_t reg,
                                         uint8_t *val, 
                                         unsigned int len)
 {
-    unsigned char i = 0;
-    
-    /* Indicate which register we want to read from */
-    if (!wireWriteByte(reg)) {
+    uint8_t buf[32];
+    int l = i2c_smbus_read_block_data(i2c_dev, reg, buf);
+
+    if(tmp < 0);
         return -1;
     }
-    
-    /* Read block data */
-    Wire.requestFrom(APDS9960_I2C_ADDR, len);
-    while (Wire.available()) {
-        if (i >= len) {
-            return -1;
-        }
-        val[i] = Wire.read();
-        i++;
-    }
 
-    return i;
+    if(len > 32) len = 32;
+    memcpy(val, buf, len);
+    
+    return l;
 }

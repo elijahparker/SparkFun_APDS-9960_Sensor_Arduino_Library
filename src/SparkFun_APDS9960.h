@@ -14,7 +14,7 @@
 #ifndef SparkFun_APDS9960_H
 #define SparkFun_APDS9960_H
 
-#include <Arduino.h>
+//#include <Arduino.h>
 
 /* Debug */
 #define DEBUG                   0
@@ -285,7 +285,7 @@ public:
     
     /* Gesture methods */
     bool isGestureAvailable();
-    int readGesture();
+    int16_t readGesture();
     
 private:
 
@@ -325,22 +325,25 @@ private:
     bool setGestureMode(uint8_t mode);
 
     /* Raw I2C Commands */
+    bool wireInitialize(char *dev, int addr);
     bool wireWriteByte(uint8_t val);
     bool wireWriteDataByte(uint8_t reg, uint8_t val);
-    bool wireWriteDataBlock(uint8_t reg, uint8_t *val, unsigned int len);
+    bool wireWriteDataBlock(uint8_t reg, uint8_t *val, uint16_t len);
     bool wireReadDataByte(uint8_t reg, uint8_t &val);
-    int wireReadDataBlock(uint8_t reg, uint8_t *val, unsigned int len);
+    int16_t wireReadDataBlock(uint8_t reg, uint8_t *val, uint16_t len);
 
     /* Members */
     gesture_data_type gesture_data_;
-    int gesture_ud_delta_;
-    int gesture_lr_delta_;
-    int gesture_ud_count_;
-    int gesture_lr_count_;
-    int gesture_near_count_;
-    int gesture_far_count_;
-    int gesture_state_;
-    int gesture_motion_;
+    int16_t gesture_ud_delta_;
+    int16_t gesture_lr_delta_;
+    int16_t gesture_ud_count_;
+    int16_t gesture_lr_count_;
+    int16_t gesture_near_count_;
+    int16_t gesture_far_count_;
+    int16_t gesture_state_;
+    int16_t gesture_motion_;
+
+    int i2c_dev;
 };
 
 #endif
