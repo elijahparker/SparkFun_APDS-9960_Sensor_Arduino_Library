@@ -27,7 +27,6 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <math.h>
-#include <linux/i2c.h>
 #include <linux/i2c-dev.h>
 
 #include "SparkFun_APDS9960.h"
@@ -2187,7 +2186,7 @@ bool SparkFun_APDS9960::wireReadDataByte(uint8_t reg, uint8_t &val)
  */
 int SparkFun_APDS9960::wireReadDataBlock(   uint8_t reg, 
                                         uint8_t *val, 
-                                        unsigned int len)
+                                        uint16_t len)
 {
     uint8_t buf[32];
     int l = i2c_smbus_read_block_data(i2c_dev, reg, buf);
