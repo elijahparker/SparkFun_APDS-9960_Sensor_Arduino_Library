@@ -177,17 +177,17 @@ bool SparkFun_APDS9960::init()
             (reg != 0xAD) )
         {
             wireReadDataByte(reg, val);
-            Serial.print(reg, HEX);
-            Serial.print(": 0x");
-            Serial.println(val, HEX);
+            printf("%d", reg, HEX);
+            printf(": 0x");
+            printf("%d", val, HEX);
         }
     }
 
     for(reg = 0xE4; reg <= 0xE7; reg++) {
         wireReadDataByte(reg, val);
-        Serial.print(reg, HEX);
-        Serial.print(": 0x");
-        Serial.println(val, HEX);
+        printf("%d", reg, HEX);
+        printf(": 0x");
+        printf("%d", val, HEX);
     }
 #endif
 
@@ -495,8 +495,9 @@ int16_t SparkFun_APDS9960::readGesture()
             }
 
 #if DEBUG
-            Serial.print("FIFO Level: ");
-            Serial.println(fifo_level);
+            printf("FIFO Level: ");
+            printf("%d", fifo_level);
+            printf("\n");
 #endif
 
             /* If there's stuff in the FIFO, read it into our data block */
@@ -508,12 +509,12 @@ int16_t SparkFun_APDS9960::readGesture()
                     return ERROR;
                 }
 #if DEBUG
-                Serial.print("FIFO Dump: ");
+                printf("FIFO Dump: ");
                 for ( i = 0; i < bytes_read; i++ ) {
-                    Serial.print(fifo_data[i]);
-                    Serial.print(" ");
+                    printf("%d", fifo_data[i]);
+                    printf(" ");
                 }
-                Serial.println();
+                printf("\n");
 #endif
 
                 /* If at least 1 set of data, sort the data into U/D/L/R */
@@ -532,12 +533,12 @@ int16_t SparkFun_APDS9960::readGesture()
                     }
                     
 #if DEBUG
-                Serial.print("Up Data: ");
+                printf("Up Data: ");
                 for ( i = 0; i < gesture_data_.total_gestures; i++ ) {
-                    Serial.print(gesture_data_.u_data[i]);
-                    Serial.print(" ");
+                    printf("%d", gesture_data_.u_data[i]);
+                    printf(" ");
                 }
-                Serial.println();
+                printf("\n");
 #endif
 
                     /* Filter and process gesture data. Decode near/far state */
@@ -545,7 +546,7 @@ int16_t SparkFun_APDS9960::readGesture()
                         if( decodeGesture() ) {
                             //***TODO: U-Turn Gestures
 #if DEBUG
-                            //Serial.println(gesture_motion_);
+                            //printf("%d", gesture_motion_);
 #endif
                         }
                     }
@@ -562,8 +563,9 @@ int16_t SparkFun_APDS9960::readGesture()
             decodeGesture();
             motion = gesture_motion_;
 #if DEBUG
-            Serial.print("END: ");
-            Serial.println(gesture_motion_);
+            printf("END: ");
+            printf("%d", gesture_motion_);
+            printf("\n");
 #endif
             resetGestureParameters();
             return motion;
@@ -810,15 +812,16 @@ bool SparkFun_APDS9960::processGestureData()
         /* Find the last value in U/D/L/R above the threshold */
         for( i = gesture_data_.total_gestures - 1; i >= 0; i-- ) {
 #if DEBUG
-            Serial.print(F("Finding last: "));
-            Serial.print(F("U:"));
-            Serial.print(gesture_data_.u_data[i]);
-            Serial.print(F(" D:"));
-            Serial.print(gesture_data_.d_data[i]);
-            Serial.print(F(" L:"));
-            Serial.print(gesture_data_.l_data[i]);
-            Serial.print(F(" R:"));
-            Serial.println(gesture_data_.r_data[i]);
+            printf("Finding last: ");
+            printf("U:");
+            printf("%d", gesture_data_.u_data[i]);
+            printf(" D:");
+            printf("%d", gesture_data_.d_data[i]);
+            printf(" L:");
+            printf("%d", gesture_data_.l_data[i]);
+            printf(" R:");
+            printf("%d", gesture_data_.r_data[i]);
+            printf("\n");
 #endif
             if( (gesture_data_.u_data[i] > GESTURE_THRESHOLD_OUT) &&
                 (gesture_data_.d_data[i] > GESTURE_THRESHOLD_OUT) &&
@@ -841,25 +844,27 @@ bool SparkFun_APDS9960::processGestureData()
     lr_ratio_last = ((l_last - r_last) * 100) / (l_last + r_last);
        
 #if DEBUG
-    Serial.print(F("Last Values: "));
-    Serial.print(F("U:"));
-    Serial.print(u_last);
-    Serial.print(F(" D:"));
-    Serial.print(d_last);
-    Serial.print(F(" L:"));
-    Serial.print(l_last);
-    Serial.print(F(" R:"));
-    Serial.println(r_last);
+    printf("Last Values: ");
+    printf("U:");
+    printf("%d", u_last);
+    printf(" D:");
+    printf("%d", d_last);
+    printf(" L:");
+    printf("%d", l_last);
+    printf(" R:");
+    printf("%d", r_last);
+    printf("\n");
 
-    Serial.print(F("Ratios: "));
-    Serial.print(F("UD Fi: "));
-    Serial.print(ud_ratio_first);
-    Serial.print(F(" UD La: "));
-    Serial.print(ud_ratio_last);
-    Serial.print(F(" LR Fi: "));
-    Serial.print(lr_ratio_first);
-    Serial.print(F(" LR La: "));
-    Serial.println(lr_ratio_last);
+    printf("Ratios: ");
+    printf("UD Fi: ");
+    printf("%d", ud_ratio_first);
+    printf(" UD La: ");
+    printf("%d", ud_ratio_last);
+    printf(" LR Fi: ");
+    printf("%d", lr_ratio_first);
+    printf(" LR La: ");
+    printf("%d", lr_ratio_last);
+    printf("\n");
 #endif
        
     /* Determine the difference between the first and last ratios */
@@ -867,11 +872,12 @@ bool SparkFun_APDS9960::processGestureData()
     lr_delta = lr_ratio_last - lr_ratio_first;
     
 #if DEBUG
-    Serial.print("Deltas: ");
-    Serial.print("UD: ");
-    Serial.print(ud_delta);
-    Serial.print(" LR: ");
-    Serial.println(lr_delta);
+    printf("Deltas: ");
+    printf("UD: ");
+    printf("%d", ud_delta);
+    printf(" LR: ");
+    printf("%d", lr_delta);
+    printf("\n");
 #endif
 
     /* Accumulate the UD and LR delta values */
@@ -879,11 +885,12 @@ bool SparkFun_APDS9960::processGestureData()
     gesture_lr_delta_ += lr_delta;
     
 #if DEBUG
-    Serial.print("Accumulations: ");
-    Serial.print("UD: ");
-    Serial.print(gesture_ud_delta_);
-    Serial.print(" LR: ");
-    Serial.println(gesture_lr_delta_);
+    printf("Accumulations: ");
+    printf("UD: ");
+    printf("%d", gesture_ud_delta_);
+    printf(" LR: ");
+    printf("%d", gesture_lr_delta_);
+    printf("\n");
 #endif
     
     /* Determine U/D gesture */
@@ -942,15 +949,16 @@ bool SparkFun_APDS9960::processGestureData()
     }
     
 #if DEBUG
-    Serial.print("UD_CT: ");
-    Serial.print(gesture_ud_count_);
-    Serial.print(" LR_CT: ");
-    Serial.print(gesture_lr_count_);
-    Serial.print(" NEAR_CT: ");
-    Serial.print(gesture_near_count_);
-    Serial.print(" FAR_CT: ");
-    Serial.println(gesture_far_count_);
-    Serial.println("----------");
+    printf("UD_CT: ");
+    printf("%d", gesture_ud_count_);
+    printf(" LR_CT: ");
+    printf("%d", gesture_lr_count_);
+    printf(" NEAR_CT: ");
+    printf("%d", gesture_near_count_);
+    printf(" FAR_CT: ");
+    printf("%d", gesture_far_count_);
+    printf("\n");
+    printf("----------\n");
 #endif
     
     return false;

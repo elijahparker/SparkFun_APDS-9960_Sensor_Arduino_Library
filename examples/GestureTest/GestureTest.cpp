@@ -81,7 +81,7 @@ void setup() {
   
   // Start running the APDS-9960 gesture sensor engine
   if ( apds.enableGestureSensor(true) ) {
-    printf(("Gesture sensor is now running\n"));
+    printf("Gesture sensor is now running\n");
   } else {
     printf("Something went wrong during gesture sensor init!\n");
   }
