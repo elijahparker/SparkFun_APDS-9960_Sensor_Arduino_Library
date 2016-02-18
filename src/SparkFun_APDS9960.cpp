@@ -20,9 +20,11 @@
  //#include <Wire.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 #include <linux/i2c-dev.h>
 
- #include "SparkFun_APDS9960.h"
+#include "SparkFun_APDS9960.h"
  
 /**
  * @brief Constructor - Instantiates SparkFun_APDS9960 object
@@ -482,7 +484,7 @@ int16_t SparkFun_APDS9960::readGesture()
     while(1) {
     
         /* Wait some time to collect next batch of FIFO data */
-        delay(FIFO_PAUSE_TIME);
+        usleep(FIFO_PAUSE_TIME * 1000);
         
         /* Get the contents of the STATUS register. Is data still valid? */
         if( !wireReadDataByte(APDS9960_GSTATUS, gstatus) ) {
@@ -561,7 +563,7 @@ int16_t SparkFun_APDS9960::readGesture()
         } else {
     
             /* Determine best guessed gesture and clean up */
-            delay(FIFO_PAUSE_TIME);
+            usleep(FIFO_PAUSE_TIME * 1000);
             decodeGesture();
             motion = gesture_motion_;
 #if DEBUG
@@ -2106,7 +2108,7 @@ bool SparkFun_APDS9960::setGestureMode(uint8_t mode)
  */
 bool SparkFun_APDS9960::wireInitialize(char *dev, int addr)
 {
-    i2c_dev = open(filename, O_RDWR);
+    i2c_dev = open(dev, O_RDWR);
     if (i2c_dev < 0) {
         return false;
     }
