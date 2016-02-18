@@ -27,7 +27,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <math.h>
-#include <linux/i2c-dev.h>
+#include <i2c-dev.h>
 
 #include "SparkFun_APDS9960.h"
  
