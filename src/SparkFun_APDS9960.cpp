@@ -2184,12 +2184,12 @@ bool SparkFun_APDS9960::wireReadDataByte(uint8_t reg, uint8_t &val)
  * @param[in] len number of bytes to read
  * @return Number of bytes read. -1 on read error.
  */
-int SparkFun_APDS9960::wireReadDataBlock(   uint8_t reg, 
+int16_t SparkFun_APDS9960::wireReadDataBlock(   uint8_t reg, 
                                         uint8_t *val, 
                                         uint16_t len)
 {
     uint8_t buf[32];
-    int l = i2c_smbus_read_block_data(i2c_dev, reg, buf);
+    int16_t l = i2c_smbus_read_block_data(i2c_dev, reg, buf);
 
     if(tmp < 0) {
         return -1;
