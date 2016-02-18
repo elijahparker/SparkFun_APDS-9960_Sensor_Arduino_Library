@@ -118,7 +118,7 @@ int main(int argc, char **argv) {
     setup();
     for(;;) {
         handleGesture();
-        usleep(200000);
+        usleep(100000);
     }
     return 0;
 }
