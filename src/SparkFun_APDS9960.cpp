@@ -18,7 +18,9 @@
  
  //#include <Arduino.h>
  //#include <Wire.h>
- #include <linux/i2c-dev.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <linux/i2c-dev.h>
 
  #include "SparkFun_APDS9960.h"
  

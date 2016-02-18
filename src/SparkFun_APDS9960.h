@@ -14,6 +14,7 @@
 #ifndef SparkFun_APDS9960_H
 #define SparkFun_APDS9960_H
 
+#include <stdint.h>
 //#include <Arduino.h>
 
 /* Debug */
