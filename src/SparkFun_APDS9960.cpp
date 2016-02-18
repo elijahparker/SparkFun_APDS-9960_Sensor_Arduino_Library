@@ -2111,7 +2111,7 @@ bool SparkFun_APDS9960::setGestureMode(uint8_t mode)
  * @param[in] dev the path to the I2C device
  * @return True if successful. False otherwise.
  */
-bool SparkFun_APDS9960::wireInitialize(char *dev, int addr)
+bool SparkFun_APDS9960::wireInitialize(const char *dev, int addr)
 {
     i2c_dev = open(dev, O_RDWR);
     if (i2c_dev < 0) {
@@ -2131,7 +2131,7 @@ bool SparkFun_APDS9960::wireInitialize(char *dev, int addr)
  */
 bool SparkFun_APDS9960::wireWriteByte(uint8_t val)
 {
-    if(i2c_smbus_write_byte(i2c_dev, val) < 0);
+    if(i2c_smbus_write_quick(i2c_dev, val) < 0)
         return false;
     }
     
@@ -2147,7 +2147,7 @@ bool SparkFun_APDS9960::wireWriteByte(uint8_t val)
  */
 bool SparkFun_APDS9960::wireWriteDataByte(uint8_t reg, uint8_t val)
 {
-    if(i2c_smbus_write_byte_data(i2c_dev, reg, val) < 0);
+    if(i2c_smbus_write_byte_data(i2c_dev, reg, val) < 0)
         return false;
     }
     
@@ -2166,7 +2166,7 @@ bool SparkFun_APDS9960::wireWriteDataBlock(  uint8_t reg,
                                         uint8_t *val, 
                                         uint16_t len)
 {
-    if(i2c_smbus_write_block_data(i2c_dev, reg, len, val) < 0);
+    if(i2c_smbus_write_block_data(i2c_dev, reg, len, val) < 0)
         return false;
     }
     
@@ -2183,7 +2183,7 @@ bool SparkFun_APDS9960::wireWriteDataBlock(  uint8_t reg,
 bool SparkFun_APDS9960::wireReadDataByte(uint8_t reg, uint8_t &val)
 {
     int tmp = i2c_smbus_read_byte_data(i2c_dev, reg);
-    if(tmp < 0);
+    if(tmp < 0)
         return false;
     }
     
@@ -2207,7 +2207,7 @@ int SparkFun_APDS9960::wireReadDataBlock(   uint8_t reg,
     uint8_t buf[32];
     int l = i2c_smbus_read_block_data(i2c_dev, reg, buf);
 
-    if(tmp < 0);
+    if(tmp < 0)
         return -1;
     }
 
