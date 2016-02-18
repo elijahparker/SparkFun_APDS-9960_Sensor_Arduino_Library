@@ -88,6 +88,7 @@ void setup() {
 }
 
 void handleGesture() {
+    printf("********************************************************************************************************************\n");
     if ( apds.isGestureAvailable() ) {
     switch ( apds.readGesture() ) {
       case DIR_UP:

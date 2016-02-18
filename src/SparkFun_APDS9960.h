@@ -35,7 +35,7 @@
 
 /* Gesture parameters */
 #define GESTURE_THRESHOLD_OUT   15
-#define GESTURE_SENSITIVITY_1   30
+#define GESTURE_SENSITIVITY_1   50
 #define GESTURE_SENSITIVITY_2   20
 
 /* Error code for returned values */

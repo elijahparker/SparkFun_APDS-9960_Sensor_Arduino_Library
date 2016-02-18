@@ -2192,6 +2192,7 @@ int16_t SparkFun_APDS9960::wireReadDataBlock(   uint8_t reg,
         if(tmp < 0) {
             break;
         }
+        reg++;
         memcpy(&val[i], &tmp, 1);
     }
     
