@@ -326,8 +326,7 @@ private:
     bool setGestureMode(uint8_t mode);
 
     /* Raw I2C Commands */
-    bool wireInitialize(char *dev, int addr);
-    bool wireWriteByte(uint8_t val);
+    bool wireInitialize(const char *dev, int addr);
     bool wireWriteDataByte(uint8_t reg, uint8_t val);
     bool wireWriteDataBlock(uint8_t reg, uint8_t *val, uint16_t len);
     bool wireReadDataByte(uint8_t reg, uint8_t &val);

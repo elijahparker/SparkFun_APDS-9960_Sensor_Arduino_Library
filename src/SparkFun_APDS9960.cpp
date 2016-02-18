@@ -2124,21 +2124,6 @@ bool SparkFun_APDS9960::wireInitialize(const char *dev, int addr)
 }
 
 /**
- * @brief Writes a single byte to the I2C device (no register)
- *
- * @param[in] val the 1-byte value to write to the I2C device
- * @return True if successful write operation. False otherwise.
- */
-bool SparkFun_APDS9960::wireWriteByte(uint8_t val)
-{
-    if(i2c_smbus_write_quick(i2c_dev, val) < 0)
-        return false;
-    }
-    
-    return true;
-}
-
-/**
  * @brief Writes a single byte to the I2C device and specified register
  *
  * @param[in] reg the register in the I2C device to write to
