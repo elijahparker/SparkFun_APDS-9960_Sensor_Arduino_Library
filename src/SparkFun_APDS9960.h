@@ -28,7 +28,7 @@
 //#include <Arduino.h>
 
 /* Debug */
-#define DEBUG                   0
+#define DEBUG                   1
 
 /* APDS-9960 I2C address */
 #define APDS9960_I2C_ADDR       0x39
@@ -184,7 +184,7 @@
 #define DEFAULT_GPENTH          40      // Threshold for entering gesture mode
 #define DEFAULT_GEXTH           30      // Threshold for exiting gesture mode    
 #define DEFAULT_GCONF1          0x40    // 4 gesture events for int., 1 for exit
-#define DEFAULT_GGAIN           GGAIN_4X
+#define DEFAULT_GGAIN           GGAIN_2X
 #define DEFAULT_GLDRIVE         LED_DRIVE_100MA
 #define DEFAULT_GWTIME          GWTIME_2_8MS
 #define DEFAULT_GOFFSET         0       // No offset scaling for gesture mode
