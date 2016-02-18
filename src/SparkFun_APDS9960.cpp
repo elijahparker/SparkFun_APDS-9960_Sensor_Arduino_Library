@@ -2171,7 +2171,7 @@ bool SparkFun_APDS9960::wireReadDataByte(uint8_t reg, uint8_t &val)
         return false;
     }
     
-    *val = (uint8_t) tmp;
+    memcpy(val, &tmp, 1);
 
     return true;
 }

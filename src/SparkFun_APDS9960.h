@@ -330,7 +330,7 @@ private:
     bool wireWriteDataByte(uint8_t reg, uint8_t val);
     bool wireWriteDataBlock(uint8_t reg, uint8_t *val, uint16_t len);
     bool wireReadDataByte(uint8_t reg, uint8_t &val);
-    int16_t wireReadDataBlock(uint8_t reg, uint8_t *val, uint16_t len);
+    int wireReadDataBlock(uint8_t reg, uint8_t *val, uint16_t len);
 
     /* Members */
     gesture_data_type gesture_data_;
