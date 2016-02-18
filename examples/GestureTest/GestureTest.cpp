@@ -91,25 +91,25 @@ void handleGesture() {
     if ( apds.isGestureAvailable() ) {
     switch ( apds.readGesture() ) {
       case DIR_UP:
-        printf("UP\n");
+        printf("************** UP ***************\n");
         break;
       case DIR_DOWN:
-        printf("DOWN\n");
+        printf("************** DOWN **************\n");
         break;
       case DIR_LEFT:
-        printf("LEFT\n");
+        printf("************** LEFT **************\n");
         break;
       case DIR_RIGHT:
-        printf("RIGHT\n");
+        printf("************** RIGHT **************\n");
         break;
       case DIR_NEAR:
-        printf("NEAR\n");
+        printf("************** NEAR **************\n");
         break;
       case DIR_FAR:
-        printf("FAR\n");
+        printf("************** FAR **************\n");
         break;
       default:
-        printf("NONE\n");
+        printf("************** NONE **************\n");
     }
   }
 }
