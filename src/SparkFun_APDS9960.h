@@ -34,8 +34,8 @@
 #define APDS9960_I2C_ADDR       0x39
 
 /* Gesture parameters */
-#define GESTURE_THRESHOLD_OUT   15
-#define GESTURE_SENSITIVITY_1   55
+#define GESTURE_THRESHOLD_OUT   10
+#define GESTURE_SENSITIVITY_1   50
 #define GESTURE_SENSITIVITY_2   20
 
 /* Error code for returned values */
@@ -184,7 +184,7 @@
 #define DEFAULT_GPENTH          50      // Threshold for entering gesture mode (50)
 #define DEFAULT_GEXTH           40      // Threshold for exiting gesture mode (40)   
 #define DEFAULT_GCONF1          0x40    // 4 gesture events for int., 1 for exit
-#define DEFAULT_GGAIN           GGAIN_4X
+#define DEFAULT_GGAIN           GGAIN_2X
 #define DEFAULT_GLDRIVE         LED_DRIVE_100MA
 #define DEFAULT_GWTIME          GWTIME_2_8MS
 #define DEFAULT_GOFFSET         0       // No offset scaling for gesture mode
