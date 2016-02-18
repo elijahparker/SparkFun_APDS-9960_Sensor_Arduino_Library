@@ -442,7 +442,7 @@ bool SparkFun_APDS9960::isGestureAvailable()
     
     /* Read value from GSTATUS register */
     if( !wireReadDataByte(APDS9960_GSTATUS, val) ) {
-        return ERROR;
+        return false;//ERROR;
     }
     
     /* Shift and mask out GVALID bit */
@@ -479,7 +479,7 @@ int16_t SparkFun_APDS9960::readGesture()
     while(1) {
     
         /* Wait some time to collect next batch of FIFO data */
-        usleep(FIFO_PAUSE_TIME * 100);
+        usleep(FIFO_PAUSE_TIME * 1000);
         
         /* Get the contents of the STATUS register. Is data still valid? */
         if( !wireReadDataByte(APDS9960_GSTATUS, gstatus) ) {
@@ -2186,9 +2186,6 @@ int16_t SparkFun_APDS9960::wireReadDataBlock(   uint8_t reg,
                                         uint8_t *val, 
                                         uint16_t len)
 {
-    //printf("Attempting to read %d bytes\n", len);
-    //int16_t l = i2c_smbus_read_block_data(i2c_dev, reg, buf);
-
     uint16_t i;
     for(i = 0; i < len; i++) {        
         int tmp = i2c_smbus_read_byte_data(i2c_dev, reg);
@@ -2197,7 +2194,6 @@ int16_t SparkFun_APDS9960::wireReadDataBlock(   uint8_t reg,
         }
         memcpy(&val[i], &tmp, 1);
     }
-    //printf("   read %d bytes\n", i);
     
     return i;
 }

@@ -182,7 +182,7 @@
 #define DEFAULT_CONFIG2         0x01    // No saturation interrupts or LED boost  
 #define DEFAULT_CONFIG3         0       // Enable all photodiodes, no SAI
 #define DEFAULT_GPENTH          50      // Threshold for entering gesture mode (50)
-#define DEFAULT_GEXTH           40      // Threshold for exiting gesture mode (40)   
+#define DEFAULT_GEXTH           140      // Threshold for exiting gesture mode (40)   
 #define DEFAULT_GCONF1          0x40    // 4 gesture events for int., 1 for exit
 #define DEFAULT_GGAIN           GGAIN_4X
 #define DEFAULT_GLDRIVE         LED_DRIVE_100MA
