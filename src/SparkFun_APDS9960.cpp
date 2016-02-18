@@ -479,7 +479,7 @@ int16_t SparkFun_APDS9960::readGesture()
     while(1) {
     
         /* Wait some time to collect next batch of FIFO data */
-        usleep(FIFO_PAUSE_TIME * 1000);
+        usleep(FIFO_PAUSE_TIME * 100);
         
         /* Get the contents of the STATUS register. Is data still valid? */
         if( !wireReadDataByte(APDS9960_GSTATUS, gstatus) ) {
