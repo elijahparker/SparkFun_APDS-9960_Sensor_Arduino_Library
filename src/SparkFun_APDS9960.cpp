@@ -2186,7 +2186,7 @@ int16_t SparkFun_APDS9960::wireReadDataBlock(   uint8_t reg,
                                         uint8_t *val, 
                                         uint16_t len)
 {
-    printf("Attempting to read %d bytes\n", len);
+    //printf("Attempting to read %d bytes\n", len);
     //int16_t l = i2c_smbus_read_block_data(i2c_dev, reg, buf);
 
     uint16_t i;
@@ -2197,7 +2197,7 @@ int16_t SparkFun_APDS9960::wireReadDataBlock(   uint8_t reg,
         }
         memcpy(&val[i], &tmp, 1);
     }
-    printf("   read %d bytes\n", i);
+    //printf("   read %d bytes\n", i);
     
     return i;
 }
