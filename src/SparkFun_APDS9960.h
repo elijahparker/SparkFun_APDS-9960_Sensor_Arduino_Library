@@ -28,14 +28,14 @@
 //#include <Arduino.h>
 
 /* Debug */
-#define DEBUG                   1
+#define DEBUG                   0
 
 /* APDS-9960 I2C address */
 #define APDS9960_I2C_ADDR       0x39
 
 /* Gesture parameters */
-#define GESTURE_THRESHOLD_OUT   10
-#define GESTURE_SENSITIVITY_1   50
+#define GESTURE_THRESHOLD_OUT   15
+#define GESTURE_SENSITIVITY_1   55
 #define GESTURE_SENSITIVITY_2   20
 
 /* Error code for returned values */
