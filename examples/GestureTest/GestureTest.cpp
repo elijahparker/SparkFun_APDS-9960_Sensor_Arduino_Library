@@ -133,8 +133,12 @@ int main(int argc, char **argv) {
         handleGesture();
         usleep(200000);
     }
+    printf("Powering down...");
     apds.disableGestureSensor();
     apds.disablePower();
+    char buffer[32];
+    read(STDIN_FILENO, buffer, 32);
+    printf("done.\n");
     return 0;
 }
 
