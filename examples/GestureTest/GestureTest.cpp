@@ -92,35 +92,49 @@ void handleGesture() {
     if ( apds.isGestureAvailable() ) {
     switch ( apds.readGesture() ) {
       case DIR_UP:
-        printf("************** UP ***************\n");
+        printf("UP\n");
         break;
       case DIR_DOWN:
-        printf("************** DOWN **************\n");
+        printf("DOWN\n");
         break;
       case DIR_LEFT:
-        printf("************** LEFT **************\n");
+        printf("LEFT\n");
         break;
       case DIR_RIGHT:
-        printf("************** RIGHT **************\n");
+        printf("RIGHT\n");
         break;
       case DIR_NEAR:
-        printf("************** NEAR **************\n");
+        printf("NEAR\n");
         break;
       case DIR_FAR:
-        printf("************** FAR **************\n");
+        printf("FAR\n");
         break;
       default:
-        printf("************** NONE **************\n");
+        //printf("************** NONE **************\n");
     }
   }
 }
 
+int kbhit()
+{
+    struct timeval tv;
+    fd_set fds;
+    tv.tv_sec = 0;
+    tv.tv_usec = 0;
+    FD_ZERO(&fds);
+    FD_SET(STDIN_FILENO, &fds); //STDIN_FILENO is 0
+    select(STDIN_FILENO+1, &fds, NULL, NULL, &tv);
+    return FD_ISSET(STDIN_FILENO, &fds);
+}
+
 int main(int argc, char **argv) {
     setup();
-    for(;;) {
+    while(!kbhit()) {
         handleGesture();
-        usleep(100000);
+        usleep(200000);
     }
+    adps.disableGestureSensor();
+    adps.disablePower();
     return 0;
 }
 
