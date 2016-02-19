@@ -2191,7 +2191,7 @@ int16_t SparkFun_APDS9960::wireReadDataBlock(   uint8_t reg,
     if(tmp < 0) {
         return -1;
     }
-    for(i = 0; i < len; i++) {        
+    for(i = 1; i < len; i++) {        
         tmp = i2c_smbus_read_byte(i2c_dev);
         if(tmp < 0) {
             break;
