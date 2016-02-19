@@ -133,8 +133,8 @@ int main(int argc, char **argv) {
         handleGesture();
         usleep(200000);
     }
-    adps.disableGestureSensor();
-    adps.disablePower();
+    apds.disableGestureSensor();
+    apds.disablePower();
     return 0;
 }
 
