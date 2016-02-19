@@ -109,7 +109,7 @@ void handleGesture() {
       case DIR_FAR:
         printf("FAR\n");
         break;
-      default:
+      //default:
         //printf("************** NONE **************\n");
     }
   }
